@@ -1,23 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before { @user = FactoryGirl.build(:user) }
-  context 'users attributes' do
-    it 'should respond to email' do
-      expect(@user).to respond_to(:email)
-    end
+  let(:user) { build(:user) }
 
-    it 'should responde to name' do
-      expect(@user).to respond_to(:name)
-    end
-
-    it 'should responde to passwords and password_confirmation' do
-      expect(@user).to respond_to(:password)
-      expect(@user).to respond_to(:password_confirmation)
-    end
-
-    it 'should be valid' do
-      expect(@user).to be_valid
+  context 'required attributes' do
+    it 'should have all required attributes' do
+      is_expected.to validate_presence_of(:email)
+      is_expected.to validate_uniqueness_of(:email).case_insensitive
+      is_expected.to validate_confirmation_of(:password)
+      is_expected.to allow_value('email@provider.com').for(:email)
     end
   end
 end
