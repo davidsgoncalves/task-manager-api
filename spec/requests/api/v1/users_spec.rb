@@ -16,7 +16,7 @@ RSpec.describe 'Users API', type: :request do
     context 'when user exists' do
       it 'should return user object' do
         user_response =  JSON.parse(response.body)
-        expect(user_response["id"]).to eq user_id
+        expect(user_response['id']).to eq user_id
       end
 
       it 'should return http status 200' do
