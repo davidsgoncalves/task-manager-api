@@ -6,7 +6,7 @@ class Api::V1::UsersController < ApplicationController
       @user = User.find(params[:id])
       respond_with @user
     rescue
-      head 404
+      head 404, "content_type" => 'text/plain'
     end
   end
 end
