@@ -32,6 +32,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.5' # RSPEC
   gem 'factory_girl_rails'
+  gem 'spring-commands-rspec'
 end
 
 group :test do
