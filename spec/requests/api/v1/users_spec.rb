@@ -99,33 +99,15 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'DELETE /users/:id' do
     before do
-      put "/api/users/#{user_id}", params: { user: user_params }, headers: headers
+      delete "/api/users/#{user_id}", params: {}, headers: headers
     end
 
-    context 'when the request params are valid' do
-      let(:user_params) { {email: 'new@email.com'} }
-
-      it 'returns status code 200' do
-        expect(response).to have_http_status 200
-      end
-
-      it 'return the json data for the updated user' do
-        user_response = JSON.parse(response.body)
-        expect(user_response['email']).to eq user_params[:email]
-      end
+    it 'returns status code 200' do
+      expect(response).to have_http_status 204
     end
 
-    context 'when the request params are invalid' do
-      let(:user_params) { {email: 'new@'} }
-
-      it 'returns status code 422' do
-        expect(response).to have_http_status 422
-      end
-
-      it 'should the json data for the errors' do
-        user_response = JSON.parse(response.body)
-        expect(user_response).to have_key('errors')
-      end
+    it 'return the json data for the updated user' do
+      expect(User.find_by(id: user.id)).to be_nil
     end
   end
 end
